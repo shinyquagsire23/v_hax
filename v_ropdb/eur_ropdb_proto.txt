@@ -1,0 +1,48 @@
+# format : ("ROP_GADGET_NAME", addr, word_size)
+# format : ("ROP_GADGET_NAME", addr, (word_size, word_skip_size, word_size))
+# format : ("APP_CONSTANT_PTR", pattern_addr, pattern_word_size, value_words_offset)
+# format : ("ROP_GADGET_NAME", addr, (word_size, word_skip_size, word_size), value_words_offset)
+[
+	# gadgets
+	("V_ROP_POP_R0PC", 0x001BDBA4, 0x1),
+	("V_ROP_POP_R1PC", 0x00162FB0, 0x1),
+	("V_ROP_POP_R4R5PC", 0x00135B34, 0x1),
+	("V_ROP_POP_R2R3R4R5R6PC", 0x001ADA8C, 0x1),
+	("V_ROP_POP_R4R5R6R7R8R9R10R11PC", 0x00104C58, 0x1),
+	("V_ROP_POP_R4R5R6R7R8R9R10R11R12PC", 0x001B98FC, 0x1),
+	("V_ROP_POP_R4LR_BX_R1", 0x0013D810, 0x2),
+	("V_ROP_NOP", 0x0013D178, 0x1),
+	("V_ROP_BX_R1", 0x0013D814, 0x1),
+	("V_ROP_LDR_R0R0_POP_R4PC", 0x00156380, 0x2),
+	("V_ROP_STR_R0R1_POP_R4PC", 0x00133514, 0x2), # str r0, [r1] ; pop {r4, pc}
+	("V_ROP_STR_R0R4_POP_R4PC", 0x001AB7EC, 0x2), # str r0, [r4] ; pop {r4, pc}
+
+	# handles
+	("V_SRV_HANDLE", 0x001ACE30, (0xa, 0x1, 0xb), 0x16),
+	("V_FSUSER_HANDLE", 0x0018B14C, (0x6, 0x1, 0x3, 0x1, 0x1), 0xa),
+	("V_GSPGPU_HANDLE", 0x0018CF78, (0x7, 0x1, 0x1), 0xa),
+	("V_DSPDSP_HANDLE", 0x001AB870, (0x9, 0x1, 0x2), 0xc, 0x8),
+
+	# functions
+	("V_FSUSER_OPENARCHIVE", 0x001AA5EC, 0x18),
+	("V_FSUSER_CONTROLARCHIVE", 0x001B97E8, 0x19),
+	("V_FSUSER_CLOSEARCHIVE", 0x001AA64C, 0xb),
+	("V_FSUSER_OPENFILEDIRECTLY", 0x001B984C, 0x2e), # r0 : &handle, r1 : &file_handle, r2 : transaction, r3 : archive_id, sp+0 : archive_path_type, sp+4 : *archive_path, sp+8 : archive_path_length, sp+0xC : path_type, sp+0x10 : path, sp+0x14 : pathlength, sp+0x18 : openflags, sp+0x1c : attributes
+	("V_FSUSER_OPENFILE", 0x001C9E0C, 0x26),
+	("V_FSUSER_FORMATSAVEDATA", 0x0018B098, 0x1e),
+	("V_FSFILE_READ", 0x001C9EA4, 0x17), # r0 : &handle, r1 : &bytes_read, r2 : offset_low, r3 : offset_high, sp+0 : *outbuf, sp+4 : size
+	("V_FSFILE_WRITE", 0x001C9F2C, 0x1f),
+	("V_FSFILE_GETSIZE", 0x001C9FA8, 0xf),
+	("V_FSFILE_CLOSE", 0x001C9F00, 0xb),
+	("V_GSPGPU_GXTRYENQUEUE", 0x00155E40, 0x10),
+	("V_GSPGPU_GXCMD4", 0x001C0BCC, 0x8),
+	("V_GSPGPU_FLUSHDATACACHE", 0x001BAFCC, 0xf),
+	("V_GSPGPU_FLUSHDATACACHE_WRAPPER", 0x001AD1A0, 0x5),
+	("V_DSPDSP_UNLOADCOMPONENT", 0x001ABA74, 0xa),
+	("V_DSPDSP_REGISTERINTERRUPTEVENTS", 0x001ABB08, 0xe),
+	("V_SVC_SLEEPTHREAD", 0x00152BD4, 0x2),
+	("V_MEMCPY", 0x001704A8, 0x1d),
+
+	# buffers
+	("V_GSPGPU_INTERRUPT_RECEIVER_STRUCT", 0x00155E34, (0x2, 0x1, 0x6), 0x2),
+]

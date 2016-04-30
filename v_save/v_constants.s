@@ -1,0 +1,7 @@
+.include "constants/constants.s"
+
+LINEAR_BUFFER equ (0x14000000)
+INITIAL_VA equ (0x001CC000)
+PAYLOAD_VA equ (0x00101000)
+V_ROP_COPYTO equ (0x0FFFC800)
+V_ROP_TARGET equ (0x0FFFD510)
