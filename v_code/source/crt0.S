@@ -4,4 +4,5 @@
 .global _start
 
 _start:
-	b _main
+	mov sp, #0x10000000
+	blx _main

@@ -1,7 +1,7 @@
 #ifndef IMPORTS_H
 #define IMPORTS_H
 
-#include <3ds/types.h>
+#include <3ds.h>
 
 #include "../../constants/constants.h"
 #define LINEAR_BUFFER ((u8*)0x14100000)
